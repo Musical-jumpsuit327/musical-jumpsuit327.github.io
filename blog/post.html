@@ -4,6 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title id="pageTitle">یادداشت — بلاگ محمدسجاد دباغ</title>
+<meta name="description" id="metaDescription" content="یادداشت‌های فنی محمدسجاد دباغ درباره بک‌اند و معماری نرم‌افزار">
+<meta name="author" content="محمدسجاد دباغ">
+<meta name="robots" content="index, follow">
+<link rel="canonical" id="canonicalLink" href="https://mdabagh.github.io/blog/post.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="بلاگ محمدسجاد دباغ">
+<meta property="og:title" id="ogTitle" content="یادداشت — بلاگ محمدسجاد دباغ">
+<meta property="og:description" id="ogDescription" content="یادداشت‌های فنی محمدسجاد دباغ">
+<meta property="og:url" id="ogUrl" content="https://mdabagh.github.io/blog/post.html">
+<meta property="og:locale" content="fa_IR">
+<meta property="og:image" content="https://mdabagh.github.io/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" id="twitterTitle" content="یادداشت — بلاگ محمدسجاد دباغ">
+<meta name="twitter:description" id="twitterDescription" content="یادداشت‌های فنی محمدسجاد دباغ">
+<meta name="twitter:image" content="https://mdabagh.github.io/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -150,6 +165,7 @@
   .error small{display:block; margin-top:6px; font-family:'JetBrains Mono', monospace; font-size:11.5px;}
 
   footer{background:var(--navy-deep); color:#9FB0C3; padding:34px 0; text-align:center; font-size:13px; font-family:'JetBrains Mono', monospace;}
+  footer span{color:var(--amber);}
 </style>
 </head>
 <body>
@@ -198,15 +214,35 @@
 </section>
 
 <footer>
-  © ۲۰۲۶ محمدسجاد دباغ
+  © ۲۰۲۶ محمدسجاد دباغ — <span>ساخته شده با عشق</span> · تهران
 </footer>
 
 <script>
+const SITE_BASE = 'https://mdabagh.github.io';
+
+function setMeta(id, content) {
+  const el = document.getElementById(id);
+  if (el) el.setAttribute('content', content);
+}
+
+function setCanonical(url) {
+  const el = document.getElementById('canonicalLink');
+  if (el) el.href = url;
+}
+
+function injectSchema(data) {
+  const old = document.getElementById('pageSchema');
+  if (old) old.remove();
+  const script = document.createElement('script');
+  script.id = 'pageSchema';
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(data);
+  document.head.appendChild(script);
+}
+
 // ============================================
 // نمایش یک پست — تک صفحه‌ی generic برای همه‌ی دسته‌ها
-// آدرس: blog/post.html?cat=design-system&slug=post-1
-// از روی cat می‌فهمه کدوم پوشه‌ی دسته‌بندی، از روی
-// slug می‌فهمه کدوم فایل توی markdouns همون دسته
+// آدرس: blog/post.html?cat=design-system&slug=FORWARD
 // ============================================
 
 class PostViewer {
@@ -257,8 +293,8 @@ class PostViewer {
       return;
     }
 
-    // لینک بازگشت رو به دسته‌بندی درست وصل کن
-    document.getElementById('backLink').href = `${this.cat}/index.html`;
+    // لینک بازگشت به صفحه دسته‌بندی
+    document.getElementById('backLink').href = `category.html?cat=${this.cat}`;
 
     // اسم دسته‌بندی برای نشان‌دادن بج
     try {
@@ -293,7 +329,41 @@ class PostViewer {
       console.error('Error loading markdown file:', e);
     }
 
-    document.getElementById('pageTitle').textContent = `${postData.title || 'یادداشت'} — بلاگ محمدسجاد دباغ`;
+    const pageUrl = `${SITE_BASE}/blog/post.html?cat=${this.cat}&slug=${this.slug}`;
+    const title = `${postData.title || 'یادداشت'} — بلاگ محمدسجاد دباغ`;
+    const description = postData.summary || 'یادداشت فنی محمدسجاد دباغ';
+
+    document.title = title;
+    document.getElementById('pageTitle').textContent = title;
+    setMeta('metaDescription', description);
+    setMeta('ogTitle', title);
+    setMeta('ogDescription', description);
+    setMeta('ogUrl', pageUrl);
+    setMeta('twitterTitle', title);
+    setMeta('twitterDescription', description);
+    setCanonical(pageUrl);
+
+    const catName = document.getElementById('articleCategory').textContent || this.cat;
+    injectSchema({
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: postData.title || 'یادداشت',
+      description: description,
+      datePublished: postData.date || undefined,
+      author: { '@type': 'Person', name: 'محمدسجاد دباغ', url: SITE_BASE },
+      url: pageUrl,
+      inLanguage: 'fa',
+      isPartOf: { '@type': 'Blog', name: 'بلاگ محمدسجاد دباغ', url: `${SITE_BASE}/blog/` },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'بلاگ', item: `${SITE_BASE}/blog/` },
+          { '@type': 'ListItem', position: 2, name: catName, item: `${SITE_BASE}/blog/category.html?cat=${this.cat}` },
+          { '@type': 'ListItem', position: 3, name: postData.title, item: pageUrl }
+        ]
+      }
+    });
+
     document.getElementById('articleTitle').textContent = postData.title || 'بدون عنوان';
     document.getElementById('articleDate').textContent = postData.date ? this.formatDate(postData.date) : '';
     document.getElementById('articleReadTime').textContent = mdContent ? this.estimateReadTime(mdContent) : '';

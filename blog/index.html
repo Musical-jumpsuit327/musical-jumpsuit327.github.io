@@ -4,6 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>بلاگ محمدسجاد دباغ — یادداشت‌های بک‌اند</title>
+<meta name="description" content="یادداشت‌های فنی محمدسجاد دباغ درباره بک‌اند، معماری نرم‌افزار، Design System و تجربه‌های واقعی توسعه.">
+<meta name="keywords" content="بلاگ بک‌اند, محمدسجاد دباغ, معماری نرم‌افزار, Design System, Laravel, PHP">
+<meta name="author" content="محمدسجاد دباغ">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mdabagh.github.io/blog/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="بلاگ محمدسجاد دباغ">
+<meta property="og:title" content="بلاگ محمدسجاد دباغ — یادداشت‌های بک‌اند">
+<meta property="og:description" content="یادداشت‌های فنی محمدسجاد دباغ درباره بک‌اند، معماری نرم‌افزار و تجربه‌های واقعی توسعه.">
+<meta property="og:url" content="https://mdabagh.github.io/blog/">
+<meta property="og:locale" content="fa_IR">
+<meta property="og:image" content="https://mdabagh.github.io/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="بلاگ محمدسجاد دباغ — یادداشت‌های بک‌اند">
+<meta name="twitter:description" content="یادداشت‌های فنی محمدسجاد دباغ درباره بک‌اند و معماری نرم‌افزار.">
+<meta name="twitter:image" content="https://mdabagh.github.io/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "بلاگ محمدسجاد دباغ",
+  "description": "یادداشت‌های فنی بک‌اند و معماری نرم‌افزار",
+  "url": "https://mdabagh.github.io/blog/",
+  "author": {
+    "@type": "Person",
+    "name": "محمدسجاد دباغ",
+    "url": "https://mdabagh.github.io"
+  },
+  "inLanguage": "fa"
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -136,6 +167,7 @@
   .error{color:#e74c3c; text-align:center; padding:20px; background:#fde8e8; border-radius:8px; margin:20px 0;}
 
   footer{background:var(--navy-deep); color:#9FB0C3; padding:34px 0; text-align:center; font-size:13px; font-family:'JetBrains Mono', monospace;}
+  footer span{color:var(--amber);}
 </style>
 </head>
 <body>
@@ -186,7 +218,7 @@
 </section>
 
 <footer>
-  © ۲۰۲۶ محمدسجاد دباغ
+  © ۲۰۲۶ محمدسجاد دباغ — <span>ساخته شده با عشق</span> · تهران
 </footer>
 
 <script>
@@ -289,7 +321,7 @@ class BlogManager {
                 summary: postData.summary || '...',
                 content: content,
                 date: postData.date || new Date().toISOString().split('T')[0],
-                url: `${category.path}/${slug}.html`
+                url: `post.html?cat=${category.id}&slug=${slug}`
               });
             }
           } catch (e) {
@@ -333,7 +365,7 @@ class BlogManager {
     }
     
     grid.innerHTML = this.categories.map((cat, index) => `
-      <a class="proj-card reveal" href="${cat.path}/index.html">
+      <a class="proj-card reveal" href="category.html?cat=${cat.id}">
         <span class="proj-num">${this.toPersianNumber(index + 1).padStart(2, '۰')}</span>
         <h3>${cat.name}</h3>
         <p>${cat.summary}</p>
